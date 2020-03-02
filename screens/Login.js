@@ -1,29 +1,56 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import * as firebase from 'firebase';
 
 export default class Login extends React.Component {
+    state = {
+        email: "",
+        password: "",
+        errorMessage: null
+    };
+
+    handleLogin = () => {
+        const { email, password } = this.setState;
+
+        firebase
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .catch(error => this.setState({ errorMessage: error.message }))
+    };
+
     render() {
         return(
             <View style={styles.container}>
                 <Text style={styles.greeting}>{"Hello, friend!\nIt's good to see you again!"}</Text>
 
                 <View style={styles.errorMessage}>
-                    <Text>ERROR!</Text>
+                    {this.state.errorMessage && <Text style={styles.error}>{this.state.errorMessage}</Text>}
                 </View>
 
                 <View style={styles.form}>
                     <View>
                         <Text style={styles.inputTitle}>E-mail Address</Text>
-                        <TextInput style={styles.input} autoCapitalize="none"></TextInput>
+                        <TextInput 
+                            style={styles.input} 
+                            autoCapitalize="none"
+                            onChangeText={email => this.setState({ email })}
+                            value={this.state.email}
+                        ></TextInput>
                     </View>
 
                     <View style={{marginTop: 32}}>
                         <Text style={styles.inputTitle}>Password</Text>
-                        <TextInput style={styles.input} secureTextEntry autoCapitalize="none"></TextInput>
+                        <TextInput 
+                            style={styles.input} 
+                            secureTextEntry 
+                            autoCapitalize="none"
+                            onChangeText={password => this.setState({ password })}
+                            value={this.state.password}
+                        ></TextInput>
                     </View>
                 </View>
 
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
                     <Text style={{color: "#FFF", fontWeight: "500"}}>Sign In</Text>
                 </TouchableOpacity>
 
@@ -52,6 +79,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         marginHorizontal: 30
+    },
+    error: {
+        color: "#E9446A",
+        fontSize: 13,
+        fontWeight: "600",
+        textAlign: "center"
     },
     form: {
         marginBottom: 48,
