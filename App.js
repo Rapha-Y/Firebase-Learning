@@ -1,12 +1,12 @@
-import { createAppContainer, createSwitchNavigator } from 'react-navigation'
-import { createStackNavigator } from 'react-navigation-stack'
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
-import Loading from './screens/Loading'
-import Home from './screens/Home'
-import Login from './screens/Login'
-import Signin from './screens/Signin'
+import Loading from './screens/Loading';
+import Home from './screens/Home';
+import Login from './screens/Login';
+import Signin from './screens/Signin';
 
-import * as firebase from 'firebase'
+import * as firebase from 'firebase';
 
 var firebaseConfig = {
   apiKey: "AIzaSyAmO2SdNPrMIINFiXIq-tdiA2mJEPYLwGY",
@@ -22,12 +22,12 @@ firebase.initializeApp(firebaseConfig);
 
 const AppStack = createStackNavigator({
   Home: Home
-})
+});
 
 const AuthStack = createStackNavigator({
   Login: Login,
   Signin: Signin,
-})
+});
 
 export default createAppContainer(
   createSwitchNavigator(
