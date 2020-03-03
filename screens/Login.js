@@ -10,18 +10,18 @@ export default class Login extends React.Component {
     };
 
     handleLogin = () => {
-        const { email, password } = this.setState;
+        const { email, password } = this.state;
 
         firebase
             .auth()
             .signInWithEmailAndPassword(email, password)
-            .catch(error => this.setState({ errorMessage: error.message }))
+            .catch(error => this.setState({ errorMessage: error.message }));
     };
 
     render() {
         return(
             <View style={styles.container}>
-                <Text style={styles.greeting}>{"Hello, friend!\nIt's good to see you again!"}</Text>
+                <Text style={styles.greeting}>{"Hello there!\nReady to create?"}</Text>
 
                 <View style={styles.errorMessage}>
                     {this.state.errorMessage && <Text style={styles.error}>{this.state.errorMessage}</Text>}
@@ -51,10 +51,13 @@ export default class Login extends React.Component {
                 </View>
 
                 <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
-                    <Text style={{color: "#FFF", fontWeight: "500"}}>Sign In</Text>
+                    <Text style={{color: "#FFF", fontWeight: "500"}}>Log In</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={{alignSelf: "center", marginTop: 32}}>
+                <TouchableOpacity 
+                    style={{alignSelf: "center", marginTop: 32}} 
+                    onPress={() => this.props.navigation.navigate("Signin")}
+                >
                     <Text style={{color: "#414959", fontSize: 13}}>
                         First time here? <Text style={{fontWeight: "500", color: "#E9446A"}}>Sign Up</Text>
                     </Text>
