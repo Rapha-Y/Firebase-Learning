@@ -93,7 +93,10 @@ const styles = StyleSheet.create({
         marginTop: 32,
         fontSize: 18,
         fontWeight: "400",
-        textAlign: "center"
+        textAlign: "center",
+        //styles below are only present so the Text component doesn't overlap the TouchableOpacity
+        alignSelf: "center",
+        width: 200
     },
     errorMessage: {
         height: 72,
@@ -133,9 +136,9 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     back: {
+        position: "absolute",
         top: 32,
         left: 28,
-        marginBottom: -40, //using position: "absolute" instead would mess with TouchableOpacity onPress functionality
         width: 40,
         height: 40,
         borderRadius: 20,
