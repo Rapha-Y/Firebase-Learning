@@ -1,8 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, StatusBar } from 'react-native';
+import  Icon  from 'react-native-vector-icons/MaterialIcons';
 import * as firebase from 'firebase';
 
+Icon.loadFont();
+
 export default class Signin extends React.Component {
+    static navigationOptions = {
+        headerShown: false
+    };
+    
     state = {
         username: "",
         email: "",
@@ -25,6 +32,12 @@ export default class Signin extends React.Component {
     render() {
         return(
             <View style={styles.container}>
+                <StatusBar barStyle="light-content"></StatusBar>
+             
+                <TouchableOpacity style={styles.back} onPress={() => {this.props.navigation.goBack(); console.log("hi");}}>
+                    <Icon name="arrow-back" size={40} color="#FFF"></Icon>
+                </TouchableOpacity>
+             
                 <Text style={styles.greeting}>{"Welcome! Err...\nWhat do you go by?"}</Text>
 
                 <View style={styles.errorMessage}>
@@ -116,6 +129,17 @@ const styles = StyleSheet.create({
         backgroundColor: "#E9446A",
         borderRadius: 4,
         height: 52,
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    back: {
+        top: 32,
+        left: 28,
+        marginBottom: -40, //using position: "absolute" instead would mess with TouchableOpacity onPress functionality
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: "#E9446A",
         alignItems: "center",
         justifyContent: "center"
     }

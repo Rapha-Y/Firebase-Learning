@@ -1,8 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, StatusBar, LayoutAnimation } from 'react-native';
 import * as firebase from 'firebase';
 
 export default class Login extends React.Component {
+    static navigationOptions = {
+        headerShown: false
+    };
+
     state = {
         email: "",
         password: "",
@@ -19,9 +23,12 @@ export default class Login extends React.Component {
     };
 
     render() {
+        LayoutAnimation.easeInEaseOut();
+
         return(
             <View style={styles.container}>
-                <Text style={styles.greeting}>{"Hello there!\nReady to create?"}</Text>
+                <StatusBar barStyle="light-content"></StatusBar>
+                <Text style={styles.greeting}>{"Hello there!\nReady to chat?"}</Text>
 
                 <View style={styles.errorMessage}>
                     {this.state.errorMessage && <Text style={styles.error}>{this.state.errorMessage}</Text>}
