@@ -32,64 +32,62 @@ export default class Signin extends React.Component {
 
     render() {
         return(
-            <View style={styles.container}>
-                <ScrollView>
-                    <StatusBar barStyle="light-content"></StatusBar>
-                    
-                    <TouchableOpacity style={styles.back} onPress={() => {this.props.navigation.goBack(); console.log("hi");}}>
-                        <Icon name="arrow-back" size={40} color="#FFF"></Icon>
-                    </TouchableOpacity>
+            <ScrollView style={styles.container}>
+                <StatusBar barStyle="light-content"></StatusBar>
                 
-                    <Text style={styles.greeting}>{"Welcome! Err...\nWhat do you go by?"}</Text>
+                <TouchableOpacity style={styles.back} onPress={() => {this.props.navigation.goBack(); console.log("hi");}}>
+                    <Icon name="arrow-back" size={40} color="#FFF"></Icon>
+                </TouchableOpacity>
+            
+                <Text style={styles.greeting}>{"Welcome! Err...\nWhat do you go by?"}</Text>
 
-                    <View style={{alignItems: "center"}}>
-                        <TouchableOpacity style={styles.avatar}>
-                            <Icon name="add" size={40} color="#FFF" style={{marginTop: 6}}></Icon>
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={styles.errorMessage}>
-                        {this.state.errorMessage && <Text style={styles.error}>{this.state.errorMessage}</Text>}
-                    </View>
-
-                    <View style={styles.form}>
-                        <View>
-                            <Text style={styles.inputTitle}>Username</Text>
-                            <TextInput 
-                                style={styles.input} 
-                                autoCapitalize="none"
-                                onChangeText={username => this.setState({ username })}
-                                value={this.state.username}
-                            ></TextInput>
-                        </View>
-
-                        <View style={{marginTop: 32}}>
-                            <Text style={styles.inputTitle}>E-mail Address</Text>
-                            <TextInput 
-                                style={styles.input} 
-                                autoCapitalize="none"
-                                onChangeText={email => this.setState({ email })}
-                                value={this.state.email}
-                            ></TextInput>
-                        </View>
-
-                        <View style={{marginTop: 32}}>
-                            <Text style={styles.inputTitle}>Password</Text>
-                            <TextInput 
-                                style={styles.input} 
-                                secureTextEntry 
-                                autoCapitalize="none"
-                                onChangeText={password => this.setState({ password })}
-                                value={this.state.password}
-                            ></TextInput>
-                        </View>
-                    </View>
-
-                    <TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
-                        <Text style={{color: "#FFF", fontWeight: "500"}}>Sign Up</Text>
+                <View style={{alignItems: "center"}}>
+                    <TouchableOpacity style={styles.avatar}>
+                        <Icon name="add" size={40} color="#FFF" style={{marginTop: 6}}></Icon>
                     </TouchableOpacity>
-                </ScrollView>
-            </View>
+                </View>
+
+                <View style={styles.errorMessage}>
+                    {this.state.errorMessage && <Text style={styles.error}>{this.state.errorMessage}</Text>}
+                </View>
+
+                <View style={styles.form}>
+                    <View>
+                        <Text style={styles.inputTitle}>Username</Text>
+                        <TextInput 
+                            style={styles.input} 
+                            autoCapitalize="none"
+                            onChangeText={username => this.setState({ username })}
+                            value={this.state.username}
+                        ></TextInput>
+                    </View>
+
+                    <View style={{marginTop: 32}}>
+                        <Text style={styles.inputTitle}>E-mail Address</Text>
+                        <TextInput 
+                            style={styles.input} 
+                            autoCapitalize="none"
+                            onChangeText={email => this.setState({ email })}
+                            value={this.state.email}
+                        ></TextInput>
+                    </View>
+
+                    <View style={{marginTop: 32}}>
+                        <Text style={styles.inputTitle}>Password</Text>
+                        <TextInput 
+                            style={styles.input} 
+                            secureTextEntry 
+                            autoCapitalize="none"
+                            onChangeText={password => this.setState({ password })}
+                            value={this.state.password}
+                        ></TextInput>
+                    </View>
+                </View>
+
+                <TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
+                    <Text style={{color: "#FFF", fontWeight: "500"}}>Sign Up</Text>
+                </TouchableOpacity>
+            </ScrollView>
         );
     }
 }
