@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, StatusBar } from 'react-native';
 import  Icon  from 'react-native-vector-icons/MaterialIcons';
 import * as firebase from 'firebase';
+import { ScrollView } from 'react-native-gesture-handler';
 
 Icon.loadFont();
 
@@ -32,54 +33,62 @@ export default class Signin extends React.Component {
     render() {
         return(
             <View style={styles.container}>
-                <StatusBar barStyle="light-content"></StatusBar>
-             
-                <TouchableOpacity style={styles.back} onPress={() => {this.props.navigation.goBack(); console.log("hi");}}>
-                    <Icon name="arrow-back" size={40} color="#FFF"></Icon>
-                </TouchableOpacity>
-             
-                <Text style={styles.greeting}>{"Welcome! Err...\nWhat do you go by?"}</Text>
+                <ScrollView>
+                    <StatusBar barStyle="light-content"></StatusBar>
+                    
+                    <TouchableOpacity style={styles.back} onPress={() => {this.props.navigation.goBack(); console.log("hi");}}>
+                        <Icon name="arrow-back" size={40} color="#FFF"></Icon>
+                    </TouchableOpacity>
+                
+                    <Text style={styles.greeting}>{"Welcome! Err...\nWhat do you go by?"}</Text>
 
-                <View style={styles.errorMessage}>
-                    {this.state.errorMessage && <Text style={styles.error}>{this.state.errorMessage}</Text>}
-                </View>
-
-                <View style={styles.form}>
-                    <View>
-                        <Text style={styles.inputTitle}>Username</Text>
-                        <TextInput 
-                            style={styles.input} 
-                            autoCapitalize="none"
-                            onChangeText={username => this.setState({ username })}
-                            value={this.state.username}
-                        ></TextInput>
+                    <View style={{alignItems: "center"}}>
+                        <TouchableOpacity style={styles.avatar}>
+                            <Icon name="add" size={40} color="#FFF" style={{marginTop: 6}}></Icon>
+                        </TouchableOpacity>
                     </View>
 
-                    <View style={{marginTop: 32}}>
-                        <Text style={styles.inputTitle}>E-mail Address</Text>
-                        <TextInput 
-                            style={styles.input} 
-                            autoCapitalize="none"
-                            onChangeText={email => this.setState({ email })}
-                            value={this.state.email}
-                        ></TextInput>
+                    <View style={styles.errorMessage}>
+                        {this.state.errorMessage && <Text style={styles.error}>{this.state.errorMessage}</Text>}
                     </View>
 
-                    <View style={{marginTop: 32}}>
-                        <Text style={styles.inputTitle}>Password</Text>
-                        <TextInput 
-                            style={styles.input} 
-                            secureTextEntry 
-                            autoCapitalize="none"
-                            onChangeText={password => this.setState({ password })}
-                            value={this.state.password}
-                        ></TextInput>
-                    </View>
-                </View>
+                    <View style={styles.form}>
+                        <View>
+                            <Text style={styles.inputTitle}>Username</Text>
+                            <TextInput 
+                                style={styles.input} 
+                                autoCapitalize="none"
+                                onChangeText={username => this.setState({ username })}
+                                value={this.state.username}
+                            ></TextInput>
+                        </View>
 
-                <TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
-                    <Text style={{color: "#FFF", fontWeight: "500"}}>Sign Up</Text>
-                </TouchableOpacity>
+                        <View style={{marginTop: 32}}>
+                            <Text style={styles.inputTitle}>E-mail Address</Text>
+                            <TextInput 
+                                style={styles.input} 
+                                autoCapitalize="none"
+                                onChangeText={email => this.setState({ email })}
+                                value={this.state.email}
+                            ></TextInput>
+                        </View>
+
+                        <View style={{marginTop: 32}}>
+                            <Text style={styles.inputTitle}>Password</Text>
+                            <TextInput 
+                                style={styles.input} 
+                                secureTextEntry 
+                                autoCapitalize="none"
+                                onChangeText={password => this.setState({ password })}
+                                value={this.state.password}
+                            ></TextInput>
+                        </View>
+                    </View>
+
+                    <TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
+                        <Text style={{color: "#FFF", fontWeight: "500"}}>Sign Up</Text>
+                    </TouchableOpacity>
+                </ScrollView>
             </View>
         );
     }
@@ -87,6 +96,7 @@ export default class Signin extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: "#FFF",
         flex: 1
     },
     greeting: {
@@ -133,7 +143,9 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         height: 52,
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        //give marginBottom to the page's last component
+        marginBottom: 100
     },
     back: {
         position: "absolute",
@@ -145,5 +157,14 @@ const styles = StyleSheet.create({
         backgroundColor: "#E9446A",
         alignItems: "center",
         justifyContent: "center"
+    },
+    avatar: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        backgroundColor: "#E1E2E6",
+        marginTop: 48,
+        justifyContent: "center",
+        alignItems: "center"
     }
 });
