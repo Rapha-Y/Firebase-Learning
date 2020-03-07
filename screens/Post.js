@@ -1,8 +1,30 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, TextInput } from 'react-native';
-import  Icon  from 'react-native-vector-icons/MaterialIcons';
+import React from 'react'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, TextInput } from 'react-native'
+import  Icon  from 'react-native-vector-icons/MaterialIcons'
+import Constants from 'expo-constants'
+import * as Permissions from 'expo-permissions'
+import Fire from '../Fire'
 
 export default class Post extends React.Component {
+    state = {
+        text: "",
+        image: null
+    };
+
+    componentDidMount() {
+        this.getPhotoPermission();
+    }
+
+    getPhotoPermission = async () => {
+        if (Constants.platform.android) {
+            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+
+            if (status != "granted") {
+                alert("We kinda need your authorization to access the camera roll");
+            }
+        }
+    };
+    
     render() {
         return (
             <ScrollView style={styles.container}>
