@@ -1,6 +1,7 @@
-import React from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
-import * as firebase from 'firebase';
+import React from 'react'
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native'
+import * as firebase from 'firebase'
+import Fire from '../Fire'
 
 export default class Loading extends React.Component {
     componentDidMount() {

@@ -9,7 +9,7 @@ class Fire {
     addPost = async ({ text, localUri }) => {
         const remoteUri = await this.uploadPhotoAsync(localUri);
 
-        return new Promise((res, res) => {
+        return new Promise((res, rej) => {
             this.firestore
                 .collection("posts")
                 .add({
