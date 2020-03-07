@@ -4,6 +4,7 @@ import  Icon  from 'react-native-vector-icons/MaterialIcons'
 import Constants from 'expo-constants'
 import * as Permissions from 'expo-permissions'
 import Fire from '../Fire'
+import * as ImagePicker from 'expo-image-picker'
 
 export default class Post extends React.Component {
     state = {
@@ -25,6 +26,18 @@ export default class Post extends React.Component {
         }
     };
     
+    pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3]
+        });
+
+        if (!result.cancelled) {
+            this.setState({ image: result.uri });
+        }
+    }
+
     render() {
         return (
             <ScrollView style={styles.container}>
@@ -51,9 +64,17 @@ export default class Post extends React.Component {
                     ></TextInput>
                 </View>
 
-                <TouchableOpacity style={styles.photo}>
+                <TouchableOpacity style={styles.photo} onPress={this.pickImage}>
                     <Icon name="camera-alt" size={32} color="#D8D9DB"></Icon>
                 </TouchableOpacity>
+
+                <View style={{ marginHorizontal: 32, marginTop: 32, height: 150 }}>
+                    <Image 
+                        source={{ uri: this.state.image }} 
+                        style={{ width: "100%", height: "100%" }}
+                    >
+                    </Image>
+                </View>
             </ScrollView>
         );
     }
