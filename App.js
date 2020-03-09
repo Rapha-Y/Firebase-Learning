@@ -17,6 +17,10 @@ import firebaseConfig from './config'
 
 import * as firebase from 'firebase'
 
+import { decode, encode } from 'base-64'
+if(!global.atob) { global.atob = decode }
+if(!global.btoa) { global.btoa = encode }
+
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }

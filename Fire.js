@@ -3,7 +3,9 @@ import * as firebase from 'firebase';
 
 class Fire {
     constructor() {
-        firebase.initializeApp(FirebaseKeys);
+        if (!firebase.apps.length) {
+            firebase.initializeApp(FirebaseKeys);
+          }
     }
 
     addPost = async ({ text, localUri }) => {
@@ -41,10 +43,9 @@ class Fire {
 
             upload.on(
                 "state_changed",
-                snapshot => {
-                    err => {
-                        rej(err);
-                    }
+                snapshot => {},
+                err => {
+                    rej(err);
                 },
                 async () => {
                     const url = await upload.snapshot.ref.getDownloadURL();
