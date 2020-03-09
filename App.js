@@ -1,30 +1,25 @@
-import React from 'react';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
-import  Icon  from 'react-native-vector-icons/MaterialIcons';
+import React from 'react'
+import { createAppContainer, createSwitchNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
+import { createBottomTabNavigator } from 'react-navigation-tabs'
+import  Icon  from 'react-native-vector-icons/MaterialIcons'
 
-import Loading from './screens/Loading';
-import Home from './screens/Home';
-import Login from './screens/Login';
-import Signin from './screens/Signin';
-import Message from './screens/Message';
-import Notification from './screens/Notification';
-import Post from './screens/Post';
-import Profile from './screens/Profile';
+import Loading from './screens/Loading'
+import Home from './screens/Home'
+import Login from './screens/Login'
+import Signin from './screens/Signin'
+import Message from './screens/Message'
+import Notification from './screens/Notification'
+import Post from './screens/Post'
+import Profile from './screens/Profile'
 
+import firebaseConfig from './config'
 
-import * as firebase from 'firebase';
+import * as firebase from 'firebase'
 
-var firebaseConfig = {
-  apiKey: "AIzaSyAmO2SdNPrMIINFiXIq-tdiA2mJEPYLwGY",
-  authDomain: "fir-learning-1f459.firebaseapp.com",
-  databaseURL: "https://fir-learning-1f459.firebaseio.com",
-  projectId: "fir-learning-1f459",
-  storageBucket: "fir-learning-1f459.appspot.com",
-  messagingSenderId: "704551034358",
-  appId: "1:704551034358:web:b4cd12150f8c7313787bd7"
-};
+import { decode, encode } from 'base-64'
+if(!global.atob) { global.atob = decode }
+if(!global.btoa) { global.btoa = encode }
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);

@@ -1,17 +1,28 @@
 package com.firebase_learning;
 
+// "com.doingmything" should be your app package name
+import com.firebase_learning.generated.BasePackageList;
+
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
-import com.facebook.react.ReactApplication;
-import com.oblador.vectoricons.VectorIconsPackage;
+import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
+
+import org.unimodules.adapters.react.ModuleRegistryAdapter;
+import org.unimodules.adapters.react.ReactModuleRegistryProvider;
+import org.unimodules.core.interfaces.SingletonModule;
+
+import java.util.Arrays;
+
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
+
+  private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(new BasePackageList().getPackageList(), Arrays.<SingletonModule>asList());
 
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {
@@ -24,8 +35,16 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
+
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
+
+          // Add unimodules
+          List<ReactPackage> unimodules = Arrays.<ReactPackage>asList(
+            new ModuleRegistryAdapter(mModuleRegistryProvider)
+          );
+          packages.addAll(unimodules);
+
           return packages;
         }
 

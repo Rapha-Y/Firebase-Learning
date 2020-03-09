@@ -35,7 +35,7 @@ export default class Signin extends React.Component {
             <ScrollView style={styles.container}>
                 <StatusBar barStyle="light-content"></StatusBar>
                 
-                <TouchableOpacity style={styles.back} onPress={() => {this.props.navigation.goBack(); console.log("hi");}}>
+                <TouchableOpacity style={styles.back} onPress={() => {this.props.navigation.goBack();}}>
                     <Icon name="arrow-back" size={40} color="#FFF"></Icon>
                 </TouchableOpacity>
             
