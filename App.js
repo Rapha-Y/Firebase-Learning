@@ -88,15 +88,10 @@ const AppContainer = createStackNavigator(
           showLabel: false
         }
       },
-    ),
-    postModal: {
-      screen: Post
-    }
+    )
   },
   {
-    mode: "modal",
     headerMode: "none",
-    initialRouteName: "postModal"
   }
 ); 
 
