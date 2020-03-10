@@ -44,7 +44,7 @@ const AppContainer = createStackNavigator(
         Post: {
           screen: Post,
           navigationOptions: {
-            tabBarIcon: ({ tintColor }) => (
+            tabBarIcon: ({ tintColor }) => 
               <Icon 
                 name="add-circle" 
                 size={48} 
@@ -56,7 +56,6 @@ const AppContainer = createStackNavigator(
                   shadowOpacity: 0.3,
                 }}
               ></Icon>
-            )
           }
         },
         Notifications: {
@@ -88,9 +87,13 @@ const AppContainer = createStackNavigator(
           showLabel: false
         }
       },
-    )
+    ),
+    postModal: {
+      screen: Post
+    }
   },
   {
+
     headerMode: "none",
   }
 ); 

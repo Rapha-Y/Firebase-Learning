@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, FlatList, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import moment from 'moment'
 
 const fakePosts = [
     {
@@ -42,7 +43,7 @@ export default class Home extends React.Component {
                     }}>
                         <View>
                             <Text style={styles.name}>{post.name}</Text>
-                            <Text style={styles.timestamp}>{post.timestamp}</Text>
+                            <Text style={styles.timestamp}>{moment(post.timestamp).fromNow()}</Text>
                         </View>
 
                         <Icon name="more-horiz" size={24} color="#73788B"></Icon>
@@ -51,6 +52,11 @@ export default class Home extends React.Component {
                     <Text style={styles.post}>{post.text}</Text>
 
                     <Image source={post.image} style={styles.postImage} resizeMode="cover" />
+
+                    <View style={{ flexDirection: "row" }}>
+                        <Icon name="favorite-border" size={24} color="#73788B" style={{ marginRight: 16}} />
+                        <Icon name="chat-bubble" size={24} color="#73788B" />
+                    </View>
                 </View>
             </View>
         );
