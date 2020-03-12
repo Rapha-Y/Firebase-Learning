@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, StatusBar, Image } from 'react-native';
 import  Icon  from 'react-native-vector-icons/MaterialIcons';
-import * as firebase from 'firebase';
+import Fire from '../Fire';
 import { ScrollView } from 'react-native-gesture-handler';
+import UserPermissions from '../utilities/UserPermissions';
+import * as ImagePicker from 'expo-image-picker';
 
 Icon.loadFont();
 
@@ -12,22 +14,31 @@ export default class Signin extends React.Component {
     };
     
     state = {
-        username: "",
-        email: "",
-        password: "",
+        user: {
+            username: "",
+            email: "",
+            password: "",
+            avatar: null
+        },
         errorMessage: null
     };
 
+    handlePickAvatar = async () => {
+        UserPermissions.getCameraPermission();
+
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowEditing: true,
+            aspect: [4, 3]
+        });
+
+        if (!result.cancelled) {
+            this.setState({ user: { ...this.state.user, avatar: result.uri } });
+        }
+    }
+
     handleSignUp = () => {
-        firebase
-            .auth()
-            .createUserWithEmailAndPassword(this.state.email, this.state.password)
-            .then(userCredentials => {
-                return userCredentials.user.updateProfile({
-                    displayName: this.state.username
-                })
-            })
-            .catch(error => this.setState({ errorMessage: error.message }));
+        Fire.shared.createUser(this.state.user);
     }
 
     render() {
@@ -42,7 +53,8 @@ export default class Signin extends React.Component {
                 <Text style={styles.greeting}>{"Welcome! Err...\nWhat do you go by?"}</Text>
 
                 <View style={{alignItems: "center"}}>
-                    <TouchableOpacity style={styles.avatar}>
+                    <TouchableOpacity style={styles.avatarPlaceholder} onPress={this.handlePickAvatar}>
+                        <Image source={{uri: this.state.user.avatar}} style={styles.avatar} />
                         <Icon name="add" size={40} color="#FFF" style={{marginTop: 6}}></Icon>
                     </TouchableOpacity>
                 </View>
@@ -57,8 +69,8 @@ export default class Signin extends React.Component {
                         <TextInput 
                             style={styles.input} 
                             autoCapitalize="none"
-                            onChangeText={username => this.setState({ username })}
-                            value={this.state.username}
+                            onChangeText={username => this.setState({ user: { ...this.state.user, username } })}
+                            value={this.state.user.username}
                         ></TextInput>
                     </View>
 
@@ -67,8 +79,8 @@ export default class Signin extends React.Component {
                         <TextInput 
                             style={styles.input} 
                             autoCapitalize="none"
-                            onChangeText={email => this.setState({ email })}
-                            value={this.state.email}
+                            onChangeText={email => this.setState({ user: { ...this.state.user, email } })}
+                            value={this.state.user.email}
                         ></TextInput>
                     </View>
 
@@ -78,8 +90,8 @@ export default class Signin extends React.Component {
                             style={styles.input} 
                             secureTextEntry 
                             autoCapitalize="none"
-                            onChangeText={password => this.setState({ password })}
-                            value={this.state.password}
+                            onChangeText={password => this.setState({ user: { ...this.state.user, password } })}
+                            value={this.state.user.password}
                         ></TextInput>
                     </View>
                 </View>
@@ -156,7 +168,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center"
     },
-    avatar: {
+    avatarPlaceholder: {
         width: 100,
         height: 100,
         borderRadius: 50,
@@ -164,5 +176,11 @@ const styles = StyleSheet.create({
         marginTop: 48,
         justifyContent: "center",
         alignItems: "center"
+    },
+    avatar: {
+        position: "absolute",
+        width: 100,
+        height: 100,
+        borderRadius: 50,
     }
 });
